@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/CozyBrian/nasa-project/issues"
   },
-  "homepage": "https://github.com/CozyBrian/nasa-project#readme"
+  "homepage": "https://github.com/CozyBrian/nasa-project#readme",
+  "dependencies": {
+    "morgan": "^1.10.0"
+  }
 }
