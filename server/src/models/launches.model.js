@@ -3,12 +3,12 @@ const launches = new Map();
 let latestFlightNumber = 100;
 
 const launch = {
-  flightNumber: 1,
-  mission: "",
-  rocket: "",
+  flightNumber: 100,
+  mission: "Search and Rescue",
+  rocket: "DeepFinder 200 II",
   launchDate: new Date('December 27, 2030'),
-  destination: "",
-  customer: "",
+  target: "Kepler 433-b",
+  customer: "Brian",
   upcoming: true,
   success: true
 };
