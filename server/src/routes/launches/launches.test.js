@@ -15,20 +15,20 @@ describe('Test POST /launches', () => {
   const FullLaunchData = {
     mission: "Brian Enter",
     rocket: "Cimpo",
-    target: "Alpha centauri",
+    target: "Kepler-442 b",
     launchDate: "December 24, 2044"
   };
 
   const LaunchDataWOLdate = {
     mission: "Brian Enter",
     rocket: "Cimpo",
-    target: "Alpha centauri"
+    target: "Kepler-442 b"
   };
 
   const LaunchDataInvalidDate = {
     mission: "Brian Enter",
     rocket: "Cimpo",
-    target: "Alpha centauri",
+    target: "Kepler-442 b",
     launchDate: "kunKra"
   };
 

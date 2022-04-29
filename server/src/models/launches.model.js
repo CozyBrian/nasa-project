@@ -8,7 +8,7 @@ const launch = {
   mission: "Search and Rescue",
   rocket: "DeepFinder 200 II",
   launchDate: new Date('December 27, 2030'),
-  target: "Kepler 433-b",
+  target: "Kepler-442 b",
   customer: "Brian",
   upcoming: true,
   success: true
@@ -16,8 +16,10 @@ const launch = {
 
 saveLaunch(launch);
 
-function existingLaunchwithId(launchId) {
-  return launches.has(launchId);
+async function existingLaunchwithId(launchId) {
+  return await launches.findOne({
+    flightNumber: launchId
+  });
 }
 
 async function getAllLaunches() {
@@ -33,7 +35,7 @@ async function getLatestFlightNumber() {
       return DEFAULT_FLIGHT_NUMBER;
     }
 
-  return latestLaunch.flightNumber;
+  return latestLaunch.flightNumber + 1;
 }
 
 async function saveLaunch(launch) {
@@ -43,15 +45,21 @@ async function saveLaunch(launch) {
 
   if (!planet) {
     throw new Error('No matching planet found!');
-  } 
+  }
+
+  await launches.findOneAndUpdate({
+    flightNumber: launch.flightNumber
+  }, launch, {
+    upsert: true
+  }); 
 }
 
 async function addNewLaunch(launch) {
   const newFlightNumber = await getLatestFlightNumber();
 
   const newLaunch = Object.assign(launch, {
-    flightNumber: newFlightNumber(),
-    customer: ['Brian', 'Tesla'],
+    flightNumber: newFlightNumber,
+    customer: "Brian",
     upcoming: true,
     success: true
   });
@@ -59,13 +67,15 @@ async function addNewLaunch(launch) {
   await saveLaunch(newLaunch);
 }
 
-function abortLaunchByid(launchId) {
-  const aborted = launches.get(launchId);
+async function abortLaunchByid(launchId) {
+  const aborted = await launches.updateOne ({
+    flightNumber: launchId
+  }, {
+    upcoming: false,
+    success: false,
+  });
 
-  aborted.upcoming = false;
-  aborted.success = false;
-
-  return aborted;
+  return aborted.modifiedCount === 1 && aborted.acknowledged;
 }
 
 
