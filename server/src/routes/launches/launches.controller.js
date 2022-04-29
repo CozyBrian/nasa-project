@@ -8,7 +8,7 @@ async function httpGetAllLaunches(req, res) {
   return res.status(200).json(await getAllLaunches());
 }
 
-function httpPostNewLaunch(req, res) {
+async function httpPostNewLaunch(req, res) {
   const launch = req.body;
   
   if (!launch.launchDate || !launch.target  || !launch.mission || !launch.rocket) {
@@ -24,7 +24,7 @@ function httpPostNewLaunch(req, res) {
     });
   }
 
-  addNewLaunch(launch)
+  await addNewLaunch(launch)
   return res.status(201).json(launch);
 }
 
