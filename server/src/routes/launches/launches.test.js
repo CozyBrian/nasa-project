@@ -8,13 +8,13 @@ describe('Launches API', () => {
   });
 
   afterAll(async () => {
-    await mongoDisconnect();
-  });
+    await mongoDisconnect()
+  })
 
   describe('Test GET /launches',() => {
     test('should respond with 200 success', async () => {
       const response = await request(app)
-      .get('/launches')
+      .get('/v1/launches')
       .expect('Content-Type', /json/)
       .expect(200);
     });
@@ -45,7 +45,7 @@ describe('Launches API', () => {
     
     test('should respond with 201 created', async () => {
       const response = await request(app)
-      .post('/launches')
+      .post('/v1/launches')
       .send(FullLaunchData)
       .expect('Content-Type', /json/)
       .expect(201);
@@ -60,7 +60,7 @@ describe('Launches API', () => {
     
     test('should catch missing required property', async () => {
       const response = await request(app)
-      .post('/launches')
+      .post('/v1/launches')
       .send(LaunchDataWOLdate)
       .expect('Content-Type', /json/)
       .expect(400);
@@ -72,7 +72,7 @@ describe('Launches API', () => {
     
     test('should catch invalid dates', async () => {
       const response = await request(app)
-      .post('/launches')
+      .post('/v1/launches')
       .send(LaunchDataInvalidDate)
       .expect('Content-Type', /json/)
       .expect(400);
