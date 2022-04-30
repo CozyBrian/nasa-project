@@ -17,7 +17,7 @@ const launch = {
   success: true
 };
 
-saveLaunch(launch);
+//saveLaunch(launch);
 
 const SPACEX_API_URL = "https://api.spacexdata.com/v4/launches/query";
 
@@ -93,8 +93,11 @@ async function existingLaunchwithId(launchId) {
   });
 }
 
-async function getAllLaunches() {
-  return await launches.find({}, {'_id': 0, '__v': 0});
+async function getAllLaunches(skip, limit) {
+  return await launches
+    .find({}, {'_id': 0, '__v': 0})
+    .skip(skip)
+    .limit(limit);
 }
 
 async function getLatestFlightNumber() {
